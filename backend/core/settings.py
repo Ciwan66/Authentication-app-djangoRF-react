@@ -42,8 +42,18 @@ INSTALLED_APPS = [
     #lib
     'rest_framework',
     "corsheaders",
+    'knox',
 
 
+
+]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
+    
+}
+
+AUTHENTICATION_BACKENDS = [
+    'users.auth_backend.EmailAuthBackend'
 ]
 
 MIDDLEWARE = [

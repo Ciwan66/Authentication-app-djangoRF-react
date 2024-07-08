@@ -14,11 +14,15 @@ const Login = () => {
   const {handleSubmit , control} = useForm()
 
   const submission = (data)=>{
-    AxiosInstance.post('register/',{
+    AxiosInstance.post('login/',{
       email:data.email,
       password:data.password
-    }).then(()=>{
-     navigate("/")
+    }).then((response)=>{
+      localStorage.setItem('Token',response.data.token)
+     navigate("/home")
+    })
+    .catch((error)=>{
+      console.error("Error during login",error)
     })
   }
   return (

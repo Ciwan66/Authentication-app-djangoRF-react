@@ -12,7 +12,7 @@ import * as yup from "yup"
 const schema = yup
   .object({
     email: yup.string().email().required("Email field is required"),
-    password: yup.string().required("Password field is required"),
+    password: yup.string().required("Password field is required").min(8,"This password is too short. It must contain at least 8 characters."),
     password2: yup.string().required("Confirm password field is required").oneOf([yup.ref('password'),null],"Password Does not match"),
   })
   .required()

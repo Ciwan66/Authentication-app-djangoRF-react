@@ -6,7 +6,14 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
+class LoginSerialzer(serializers.Serializer):
+    email = serializers.CharField()
+    password = serializers.CharField()
 
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret.pop('password',None)
+        return ret
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

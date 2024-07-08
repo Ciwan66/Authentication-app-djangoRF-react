@@ -4,30 +4,32 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import Navbar from "./components/Navbar";
 import About from "./components/About";
-import { Routes, Route , useLocation } from "react-router-dom";
+import ProtectedRouter from "./components/ProtectedRoutes";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 function App() {
-  const location = useLocation()
-  const noNavBar = location.pathname === "/" || location.pathname === "/register"
+  const location = useLocation();
+  const noNavBar =
+    location.pathname === "/" || location.pathname === "/register";
   return (
     <>
-      {
-        noNavBar?
+      {noNavBar ? (
         <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
-        :
+      ) : (
         <Navbar
-        content={
-          <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/about" element={<About />} />
-          </Routes>
-        }
-      />
-      }
-
+          content={
+            <Routes>
+              <Route element={<ProtectedRouter/>}>
+                <Route path="/home" element={<Home />} />
+                <Route path="/about" element={<About />} />
+              </Route>
+            </Routes>
+          }
+        />
+      )}
     </>
   );
 }
