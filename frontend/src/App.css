@@ -11,9 +11,9 @@
 .myWhiteBox {
     background-color: white;
     padding:  25px;
-    min-width: 300px;
+    min-width: 350px;
     height: 60%;
-    width: 25%;
+    width: 30%;
     -webkit-box-shadow: 3px 3px 77px 4px rgba(173,92,173,0.79);
     -moz-box-shadow: 3px 3px 77px 4px rgba(173,92,173,0.79);
     box-shadow: 3px 3px 77px 4px rgba(173,92,173,0.79);}

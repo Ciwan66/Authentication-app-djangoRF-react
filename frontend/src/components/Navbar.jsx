@@ -9,15 +9,28 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import HomeIcon from '@mui/icons-material/Home';
-import InfoIcon from '@mui/icons-material/Info';
-import { Link , useLocation } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
+import InfoIcon from "@mui/icons-material/Info";
+import { Link, useLocation } from "react-router-dom";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import AxiosInstance from "./AxiosInstance";
+import { useNavigate} from "react-router-dom";
+
 const drawerWidth = 240;
 
 export default function Navbar(props) {
   const { content } = props;
-  const location = useLocation()
-  const path = location.pathname
+  const location = useLocation();
+  const path = location.pathname;
+  const navigate = useNavigate()
+  const LogoutClickHandler = ()=>{
+    AxiosInstance.post(`auth/logoutall/`,{
+
+    }).then(()=>{
+      localStorage.removeItem('Token')
+      navigate('/')
+    })
+  }
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -46,7 +59,11 @@ export default function Navbar(props) {
         <Box sx={{ overflow: "auto" }}>
           <List>
             <ListItem key={1} disablePadding>
-              <ListItemButton component={Link} to="/home" selected={"/home" === path}>
+              <ListItemButton
+                component={Link}
+                to="/home"
+                selected={"/home" === path}
+              >
                 <ListItemIcon>
                   <HomeIcon />
                 </ListItemIcon>
@@ -54,11 +71,23 @@ export default function Navbar(props) {
               </ListItemButton>
             </ListItem>
             <ListItem key={2} disablePadding>
-              <ListItemButton component={Link} to="/about" selected={"/about" === path}>
+              <ListItemButton
+                component={Link}
+                to="/about"
+                selected={"/about" === path}
+              >
                 <ListItemIcon>
                   <InfoIcon />
                 </ListItemIcon>
                 <ListItemText primary={"About"} />
+              </ListItemButton>
+            </ListItem>
+            <ListItem key={3} disablePadding>
+              <ListItemButton onClick={LogoutClickHandler}>
+                <ListItemIcon>
+                  <ExitToAppIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Logout"} />
               </ListItemButton>
             </ListItem>
           </List>
